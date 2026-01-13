@@ -1,0 +1,14 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "cd tinyurl-frontend && npm run dev",
+    "build": "cd tinyurl-frontend && npm run build",
+    "preview": "cd tinyurl-frontend && npm run preview",
+    "install-deps": "cd tinyurl-frontend && npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "TinyURL Frontend Application"
+}
