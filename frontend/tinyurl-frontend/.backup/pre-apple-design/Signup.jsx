@@ -52,42 +52,42 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
-      {/* Apple-style Navigation */}
-      <nav className="flex items-center justify-between p-4 md:px-8 md:py-6 backdrop-blur-xl bg-white/80 dark:bg-black/80">
+      {/* Navigation - Responsive */}
+      <nav className="flex items-center justify-between p-4 md:px-8 md:py-6">
         <div className="flex items-center gap-2">
-          <Link2 className="w-5 h-5 text-black dark:text-white" strokeWidth={1.5} />
-          <span className="text-lg font-semibold text-black dark:text-white tracking-tight">snip</span>
+          <Link2 className="w-4 h-4 text-black dark:text-white" strokeWidth={2} />
+          <span className="text-base font-medium text-black dark:text-white">snip</span>
         </div>
         <ThemeToggler />
       </nav>
 
-      {/* Main Content - Apple-style */}
-      <div className="flex items-center justify-center p-4 md:px-8 py-16 md:py-24">
-        <div className="w-full max-w-md">
-          {/* Header - Apple Typography */}
-          <div className="text-center mb-8 md:mb-10">
-            <h1 className="text-4xl md:text-5xl font-semibold text-black tracking-tight mb-3 dark:text-white" style={{ letterSpacing: '-0.28px', lineHeight: '1.10' }}>
+      {/* Main Content - Responsive */}
+      <div className="flex items-center justify-center p-4 md:px-8 py-12 md:py-20">
+        <div className="w-full max-w-sm">
+          {/* Header - Responsive Text */}
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-black tracking-tight mb-2 dark:text-white">
               Create account
             </h1>
-            <p className="text-xl text-gray-600 font-normal dark:text-gray-400" style={{ letterSpacing: '0.231px', lineHeight: '1.19' }}>
+            <p className="text-gray-500 font-normal dark:text-gray-400">
               Join snip today
             </p>
           </div>
 
-          {/* Signup Form - Apple-style */}
-          <Card className="border-0 shadow-lg rounded-2xl dark:bg-gray-900">
-            <CardContent className="p-6 md:p-8 space-y-6">
-              <form onSubmit={handleSignup} className="space-y-5">
+          {/* Signup Form - Touch-Friendly */}
+          <Card className="border border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-700">
+            <CardContent className="p-4 md:p-6 space-y-6">
+              <form onSubmit={handleSignup} className="space-y-4">
                 {error && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl dark:bg-red-900/20 dark:border-red-800">
-                    <p className="text-sm text-red-600 font-normal dark:text-red-400" style={{ letterSpacing: '-0.224px' }}>{error}</p>
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:border-red-800">
+                    <p className="text-sm text-red-600 font-medium dark:text-red-400">{error}</p>
                   </div>
                 )}
 
                 {/* Name Fields - Stack on Mobile */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label htmlFor="first_name" className="text-base font-normal text-gray-900 dark:text-gray-100" style={{ letterSpacing: '-0.374px' }}>
+                    <Label htmlFor="first_name" className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       First name
                     </Label>
                     <Input
@@ -97,13 +97,12 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
                       value={formData.first_name}
                       onChange={handleChange}
                       placeholder="John"
-                      className="h-14 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-normal rounded-xl text-base dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 transition-all"
-                      style={{ letterSpacing: '-0.374px' }}
+                      className="h-12 border-gray-200 focus:border-gray-400 focus:ring-0 font-normal dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="last_name" className="text-base font-normal text-gray-900 dark:text-gray-100" style={{ letterSpacing: '-0.374px' }}>
+                    <Label htmlFor="last_name" className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       Last name
                     </Label>
                     <Input
@@ -113,15 +112,14 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
                       value={formData.last_name}
                       onChange={handleChange}
                       placeholder="Doe"
-                      className="h-14 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-normal rounded-xl text-base dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 transition-all"
-                      style={{ letterSpacing: '-0.374px' }}
+                      className="h-12 border-gray-200 focus:border-gray-400 focus:ring-0 font-normal dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-base font-normal text-gray-900 dark:text-gray-100" style={{ letterSpacing: '-0.374px' }}>
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-900 dark:text-gray-100">
                     Email
                   </Label>
                   <Input
@@ -131,14 +129,13 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your@email.com"
-                    className="h-14 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-normal rounded-xl text-base dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 transition-all"
-                    style={{ letterSpacing: '-0.374px' }}
+                    className="h-12 border-gray-200 focus:border-gray-400 focus:ring-0 font-normal dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-base font-normal text-gray-900 dark:text-gray-100" style={{ letterSpacing: '-0.374px' }}>
+                  <Label htmlFor="password" className="text-sm font-medium text-gray-900 dark:text-gray-100">
                     Password
                   </Label>
                   <div className="relative">
@@ -149,19 +146,18 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Create a password"
-                      className="h-14 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-normal pr-14 rounded-xl text-base dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 transition-all"
-                      style={{ letterSpacing: '-0.374px' }}
+                      className="h-12 border-gray-200 focus:border-gray-400 focus:ring-0 font-normal pr-12 dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white p-1 transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white p-1"
                     >
                       {showPassword ? (
-                        <EyeOff className="w-5 h-5" strokeWidth={1.5} />
+                        <EyeOff className="w-4 h-4" strokeWidth={2} />
                       ) : (
-                        <Eye className="w-5 h-5" strokeWidth={1.5} />
+                        <Eye className="w-4 h-4" strokeWidth={2} />
                       )}
                     </button>
                   </div>
@@ -170,8 +166,7 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
                 <Button
                   type="submit"
                   disabled={loading || !isFormValid}
-                  className="w-full h-14 font-normal bg-blue-600 text-white hover:bg-blue-700 rounded-xl text-base dark:bg-blue-500 dark:hover:bg-blue-600 disabled:bg-gray-300 disabled:text-gray-500 transition-all shadow-sm"
-                  style={{ letterSpacing: '-0.374px' }}
+                  className="w-full h-12 font-medium !bg-black !text-white hover:!bg-gray-800 dark:!bg-white dark:!text-black dark:hover:!bg-gray-100 disabled:!bg-gray-300 disabled:!text-gray-600"
                   size="lg"
                 >
                   {loading ? 'Creating account...' : 'Create account'}
@@ -179,12 +174,12 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
               </form>
 
               <div className="space-y-4">
-                <div className="text-center pt-5 border-t border-gray-100 dark:border-gray-800">
-                  <p className="text-base text-gray-600 font-normal dark:text-gray-400" style={{ letterSpacing: '-0.374px' }}>
+                <div className="text-center pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <p className="text-sm text-gray-600 font-normal dark:text-gray-400">
                     Already have an account?{' '}
                     <button
                       onClick={onSwitchToLogin}
-                      className="text-blue-600 font-normal hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                      className="text-black font-medium hover:underline dark:text-white"
                     >
                       Sign in
                     </button>
@@ -194,8 +189,8 @@ function Signup({ onSignup, onSwitchToLogin, onBackToLanding }) {
                 <div className="text-center">
                   <Button
                     onClick={onBackToLanding}
-                    className="text-gray-600 hover:text-black font-normal text-base bg-transparent border-0 dark:text-gray-400 dark:hover:text-white"
-                    style={{ letterSpacing: '-0.374px' }}
+                    variant="ghost"
+                    className="text-gray-500 hover:text-black font-normal text-sm dark:text-gray-400 dark:hover:text-white"
                   >
                     Continue as Guest
                   </Button>

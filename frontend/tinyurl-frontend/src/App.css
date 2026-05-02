@@ -1,10 +1,14 @@
-/* Import Inter font exactly as used in reference */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+/* Import SF Pro font (Apple's proprietary typeface) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-/* Override default font family to match reference exactly */
+/* Override default font family to match Apple design */
 * {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-family: 'SF Pro Text', 'SF Pro Icons', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* SF Pro Display for large text (20px+) */
+h1, h2, h3, .text-display {
+  font-family: 'SF Pro Display', 'SF Pro Icons', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
 /* Ensure proper box sizing */
@@ -14,7 +18,7 @@
   box-sizing: border-box;
 }
 
-/* Clean body styles matching reference */
+/* Clean body styles matching Apple design */
 body {
   margin: 0;
   padding: 0;
@@ -23,19 +27,20 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
 }
 
-/* Improve focus visibility */
+/* Improve focus visibility - Apple Blue */
 *:focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid #0071e3;
   outline-offset: 2px;
 }
 
 /* Better button focus states */
 button:focus-visible {
-  outline: 2px solid #000000;
+  outline: 2px solid #0071e3;
   outline-offset: 2px;
 }
 
@@ -46,42 +51,52 @@ a {
   transition: all 0.15s ease-in-out;
 }
 
-/* Ensure exact font weights from reference */
+/* Apple font weights */
 .font-normal {
   font-weight: 400 !important;
 }
 
 .font-medium {
-  font-weight: 500 !important;
+  font-weight: 600 !important;
 }
 
 .font-bold {
   font-weight: 700 !important;
 }
 
-/* Exact text sizes from reference */
+/* Apple text sizes with proper line-heights */
 .text-xs {
   font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: -0.12px;
 }
 
 .text-sm {
   font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
 }
 
 .text-base {
-  font-size: 16px;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
 }
 
 .text-lg {
-  font-size: 18px;
+  font-size: 21px;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
 }
 
 .text-4xl {
-  font-size: 36px;
-  line-height: 1.1;
+  font-size: 40px;
+  line-height: 1.10;
+  letter-spacing: normal;
 }
 
 .text-6xl {
-  font-size: 60px;
-  line-height: 1;
+  font-size: 56px;
+  line-height: 1.07;
+  letter-spacing: -0.28px;
 }
