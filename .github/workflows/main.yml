@@ -1,4 +1,4 @@
-name : React CI
+name: React CI
 
 on:
   push:
@@ -6,13 +6,13 @@ on:
 
 jobs:
   build:
-    runs-on:ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
-      -uses:actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      -name:Install dependencies
-       run:npm Install
+      - name: Install dependencies
+        run: npm install
 
-      -name:Build project
-       run:npm run build 
+      - name: Build project
+        run: npm run build
