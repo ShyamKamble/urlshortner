@@ -1,13 +1,6 @@
 import { useState } from 'react'
 
 const ThemeToggler = () => {
-<<<<<<< HEAD
-  const [isDark, setIsDark] = useState(() => {
-    // Initialize state from localStorage
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    return savedTheme === 'dark' || (!savedTheme && prefersDark)
-=======
   // Initialize theme from localStorage or system preference
   const [isDark, setIsDark] = useState(() => {
     const savedTheme = localStorage.getItem('theme')
@@ -22,22 +15,11 @@ const ThemeToggler = () => {
     }
     
     return isDarkMode
->>>>>>> d45492e (solving the lint errors)
   })
 
-  // Apply theme on mount and when isDark changes
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }, [isDark])
-
   const toggleTheme = () => {
-    setIsDark(prevIsDark => !prevIsDark)
+    const newTheme = !isDark
+    setIsDark(newTheme)
   }
 
   return (

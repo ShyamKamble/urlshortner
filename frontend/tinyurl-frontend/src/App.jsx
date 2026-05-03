@@ -10,13 +10,7 @@ function App() {
     const savedUser = localStorage.getItem('tinyurl_user')
     if (savedUser) {
       try {
-<<<<<<< HEAD
-        const userData = JSON.parse(savedUser)
-        setUser(userData)
-        setCurrentView('app')
-=======
         return JSON.parse(savedUser)
->>>>>>> d45492e (solving the lint errors)
       } catch {
         localStorage.removeItem('tinyurl_user')
         return null
