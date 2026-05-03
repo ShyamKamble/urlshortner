@@ -14,13 +14,10 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
   const [loading, setLoading] = useState(false)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [showLimitReached, setShowLimitReached] = useState(false)
-  const [anonymousCount, setAnonymousCount] = useState(0)
-
-  // Check anonymous usage count on component mount
-  useEffect(() => {
-    const count = parseInt(localStorage.getItem('anonymous_url_count') || '0')
-    setAnonymousCount(count)
-  }, [])
+  const [anonymousCount, setAnonymousCount] = useState(() => {
+    // Initialize from localStorage
+    return parseInt(localStorage.getItem('anonymous_url_count') || '0')
+  })
 
   const handleShortenUrl = async (e) => {
     e.preventDefault()

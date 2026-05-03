@@ -31,6 +31,7 @@ function TinyURL({ user, onLogout }) {
     
     // Fetch user's URL history
     fetchUserUrls()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchUserUrls = async () => {

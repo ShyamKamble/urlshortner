@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const ThemeToggler = () => {
-  const [isDark, setIsDark] = useState(false)
-
-  // Check for saved theme preference or default to light
-  useEffect(() => {
+  // Initialize theme from localStorage or system preference
+  const [isDark, setIsDark] = useState(() => {
     const savedTheme = localStorage.getItem('theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isDarkMode = savedTheme === 'dark' || (!savedTheme && prefersDark)
     
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true)
+    // Apply theme class immediately during initialization
+    if (isDarkMode) {
       document.documentElement.classList.add('dark')
     } else {
-      setIsDark(false)
       document.documentElement.classList.remove('dark')
     }
-  }, [])
+    
+    return isDarkMode
+  })
 
   const toggleTheme = () => {
     const newTheme = !isDark
