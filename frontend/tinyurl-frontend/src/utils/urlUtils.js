@@ -30,7 +30,7 @@ export const decodeUrl = (url) => {
     }
     
     return decoded;
-  } catch (_error) {
+  } catch {
     console.warn('Failed to decode URL:', url);
     return url;
   }
@@ -58,14 +58,14 @@ export const extractDomain = (url) => {
     }
     
     return hostname;
-  } catch (_error) {
+  } catch {
     // If URL parsing fails, try to extract domain manually
     try {
       const decodedUrl = decodeUrl(url);
       const match = decodedUrl.match(/^https?:\/\/(?:www\.)?([^/]+)/);
       return match ? match[1] : url;
-    } catch (fallbackError) {
-      console.warn('Failed to extract domain from URL:', url, fallbackError);
+    } catch {
+      console.warn('Failed to extract domain from URL:', url);
       return url;
     }
   }
@@ -94,7 +94,7 @@ export const formatUrlForDisplay = (url, maxLength = 50, domainOnly = false) => 
     
     // Truncate with ellipsis
     return decodedUrl.substring(0, maxLength - 3) + '...';
-  } catch (_error) {
+  } catch {
     console.warn('Failed to format URL for display:', url);
     return url.length > maxLength ? url.substring(0, maxLength - 3) + '...' : url;
   }
@@ -112,7 +112,7 @@ export const isValidUrl = (url) => {
     const decodedUrl = decodeUrl(url);
     new URL(decodedUrl);
     return true;
-  } catch (_error) {
+  } catch {
     return false;
   }
 };
@@ -126,7 +126,7 @@ export const getFaviconUrl = (url) => {
   try {
     const domain = extractDomain(url);
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
-  } catch (_error) {
+  } catch {
     return null;
   }
 };
