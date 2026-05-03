@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -19,21 +19,7 @@ function TinyURL({ user, onLogout }) {
   const [loadingUrls, setLoadingUrls] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
 
-  // Check for pending URL when component mounts
-  useEffect(() => {
-    const pendingUrl = localStorage.getItem('pending_url')
-    if (pendingUrl) {
-      setUrl(pendingUrl)
-      localStorage.removeItem('pending_url')
-      // Auto-shorten the pending URL
-      handleShortenUrl(null, pendingUrl)
-    }
-    
-    // Fetch user's URL history
-    fetchUserUrls()
-  }, [])
-
-  const fetchUserUrls = async () => {
+  const fetchUserUrls = useCallback(async () => {
     try {
       setLoadingUrls(true)
       console.log('Fetching URLs for user ID:', user.id)
@@ -60,9 +46,9 @@ function TinyURL({ user, onLogout }) {
         console.log('Sorted URLs:', sortedUrls)
         setUserUrls(sortedUrls)
       }
-    } catch (error) {
-      console.error('Error fetching user URLs:', error)
-      if (error.response?.status === 401) {
+    } catch (_error) {
+      console.error('Error fetching user URLs:', _error)
+      if (_error.response?.status === 401) {
         // Token expired or invalid
         localStorage.removeItem('authToken')
         localStorage.removeItem('tinyurl_user')
@@ -71,9 +57,9 @@ function TinyURL({ user, onLogout }) {
     } finally {
       setLoadingUrls(false)
     }
-  }
+  }, [user.id, onLogout])
 
-  const handleShortenUrl = async (e, pendingUrlParam = null) => {
+  const handleShortenUrl = useCallback(async (e, pendingUrlParam = null) => {
     if (e) e.preventDefault()
     const urlToShorten = pendingUrlParam || url
     if (!urlToShorten) return
@@ -94,19 +80,33 @@ function TinyURL({ user, onLogout }) {
       setShortUrl(response.data.shortUrl)
       // Refresh the URL list after creating a new one
       fetchUserUrls()
-    } catch (error) {
-      console.error('Error shortening URL:', error)
+    } catch (_error) {
+      console.error('Error shortening URL:', _error)
     }
     setLoading(false)
-  }
+  }, [url, fetchUserUrls])
+
+  // Check for pending URL when component mounts
+  useEffect(() => {
+    const pendingUrl = localStorage.getItem('pending_url')
+    if (pendingUrl) {
+      setUrl(pendingUrl)
+      localStorage.removeItem('pending_url')
+      // Auto-shorten the pending URL
+      handleShortenUrl(null, pendingUrl)
+    }
+    
+    // Fetch user's URL history
+    fetchUserUrls()
+  }, [fetchUserUrls, handleShortenUrl])
 
   const handleCopy = async (textToCopy, id = 'main') => {
     try {
       await navigator.clipboard.writeText(textToCopy)
       setCopied(id)
       setTimeout(() => setCopied(''), 2000)
-    } catch (error) {
-      console.error('Failed to copy:', error)
+    } catch (_error) {
+      console.error('Failed to copy:', _error)
     }
   }
 
@@ -180,13 +180,13 @@ function TinyURL({ user, onLogout }) {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Paste your long URL here..."
-                  className="flex-1 h-12 px-4 text-sm border-gray-300 rounded-md focus:border-gray-400 focus:ring-0 bg-white font-normal dark:bg-gray-900 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                  className="flex-1 h-12 px-4 text-sm border-gray-300 rounded-md focus:border-gray-400 focus:ring-0 bg-white font-normal dark:bg-gray-900 dark:border-gray-600 dark:text-white dark:focus:border-gray-500"
                   required
                 />
                 <Button 
                   type="submit" 
                   disabled={loading || !url.trim()}
-                  className="!inline-flex !items-center !justify-center !gap-2 !whitespace-nowrap !shrink-0 !h-12 !px-6 !py-2 !text-sm !font-medium !rounded-md !transition-all !outline-none !bg-gray-900 !text-white hover:!bg-gray-800 !border !border-gray-300 !shadow-sm disabled:!pointer-events-none disabled:!opacity-100 disabled:!bg-gray-300 disabled:!text-gray-600 focus-visible:!ring-2 focus-visible:!ring-offset-2 focus-visible:!ring-gray-900"
+                  className="!inline-flex !items-center !justify-center !gap-2 !whitespace-nowrap !shrink-0 !h-12 !px-6 !py-2 !text-sm !font-medium !rounded-md !transition-all !outline-none !bg-gray-900 !text-white !hover:bg-gray-800 !dark:bg-gray-100 !dark:text-gray-900 !dark:hover:bg-gray-200 !disabled:bg-gray-300 !disabled:text-gray-500 !disabled:cursor-not-allowed"
                 >
                   {loading ? 'Shortening...' : (
                     <>

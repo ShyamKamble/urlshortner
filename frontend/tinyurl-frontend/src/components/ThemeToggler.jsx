@@ -33,7 +33,7 @@ const ThemeToggler = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex h-10 w-20 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-1 transition-all duration-300 ease-in-out hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500"
+      className="relative inline-flex h-10 w-20 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-1 transition-all duration-300 ease-in-out hover:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-900"
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
     >
       {/* Track */}
@@ -55,7 +55,7 @@ const ThemeToggler = () => {
         >
           <path
             fillRule="evenodd"
-            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.464-2.05a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm5.657-5.657a1 1 0 00-1.414 0l-.707.707a1 1 0 001.414 1.414l.707-.707a1 1 0 000-1.414zM5.678 6.464a1 1 0 010-1.414l.707-.707a1 1 0 11 1.414 1.414l-.707.707a1 1 0 01-1.414 0z"
             clipRule="evenodd"
           />
         </svg>
