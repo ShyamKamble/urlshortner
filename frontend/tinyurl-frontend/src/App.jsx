@@ -1,26 +1,34 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import LandingPage from './components/LandingPage'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import TinyURL from './components/TinyURL'
 
 function App() {
-  const [user, setUser] = useState(null)
-  const [currentView, setCurrentView] = useState('landing') // Start with landing page
-
-  // Check for saved user session on app load
-  useEffect(() => {
+  // Initialize user and view from localStorage
+  const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('tinyurl_user')
     if (savedUser) {
       try {
+<<<<<<< HEAD
         const userData = JSON.parse(savedUser)
         setUser(userData)
         setCurrentView('app')
+=======
+        return JSON.parse(savedUser)
+>>>>>>> d45492e (solving the lint errors)
       } catch {
         localStorage.removeItem('tinyurl_user')
+        return null
       }
     }
-  }, [])
+    return null
+  })
+  
+  const [currentView, setCurrentView] = useState(() => {
+    const savedUser = localStorage.getItem('tinyurl_user')
+    return savedUser ? 'app' : 'landing'
+  })
 
   const handleLogin = (userData) => {
     setUser(userData)

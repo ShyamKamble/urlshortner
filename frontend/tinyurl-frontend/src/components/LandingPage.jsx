@@ -14,6 +14,7 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
   const [loading, setLoading] = useState(false)
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [showLimitReached, setShowLimitReached] = useState(false)
+<<<<<<< HEAD
   const [anonymousCount, setAnonymousCount] = useState(0)
 
   // Check anonymous usage count on component mount
@@ -24,6 +25,12 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
       setAnonymousCount(count)
     }
   }, [])
+=======
+  const [anonymousCount, setAnonymousCount] = useState(() => {
+    // Initialize from localStorage
+    return parseInt(localStorage.getItem('anonymous_url_count') || '0')
+  })
+>>>>>>> d45492e (solving the lint errors)
 
   const handleShortenUrl = async (e) => {
     e.preventDefault()

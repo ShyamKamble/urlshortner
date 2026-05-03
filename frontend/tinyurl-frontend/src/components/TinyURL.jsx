@@ -19,7 +19,26 @@ function TinyURL({ user, onLogout }) {
   const [loadingUrls, setLoadingUrls] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
 
+<<<<<<< HEAD
   const fetchUserUrls = useCallback(async () => {
+=======
+  // Check for pending URL when component mounts
+  useEffect(() => {
+    const pendingUrl = localStorage.getItem('pending_url')
+    if (pendingUrl) {
+      setUrl(pendingUrl)
+      localStorage.removeItem('pending_url')
+      // Auto-shorten the pending URL
+      handleShortenUrl(null, pendingUrl)
+    }
+    
+    // Fetch user's URL history
+    fetchUserUrls()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchUserUrls = async () => {
+>>>>>>> d45492e (solving the lint errors)
     try {
       setLoadingUrls(true)
       console.log('Fetching URLs for user ID:', user.id)

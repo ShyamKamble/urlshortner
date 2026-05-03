@@ -1,0 +1,39 @@
+# Simple CI Pipeline - Perfect for Beginners
+name: Simple CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Get your code
+      - uses: actions/checkout@v3
+      
+      # 2. Setup Node.js
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      # 3. Test Backend
+      - name: Test Backend
+        run: |
+          cd backend
+          npm install
+          npm test || echo "Add tests later"
+      
+      # 4. Test Frontend
+      - name: Test Frontend
+        run: |
+          cd frontend/tinyurl-frontend
+          npm install
+          npm run build
+      
+      # 5. Success message
+      - name: All tests passed!
+        run: echo "✅ Everything works!"

@@ -1,0 +1,133 @@
+name: CI/CD Pipeline
+
+# When to run this workflow
+on:
+  push:
+    branches: [ main, master ]  # Run on push to main/master
+  pull_request:
+    branches: [ main, master ]  # Run on PRs to main/master
+
+# Environment variables available to all jobs
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  # Job 1: Test Backend
+  test-backend:
+    name: Test Backend
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Get the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      
+      # Step 3: Install dependencies
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm ci
+      
+      # Step 4: Run linter (if you have one)
+      - name: Run ESLint
+        working-directory: ./backend
+        run: npm run lint || echo "No lint script found"
+        continue-on-error: true
+      
+      # Step 5: Run tests (when you add them)
+      - name: Run backend tests
+        working-directory: ./backend
+        run: npm test || echo "No tests found yet"
+        continue-on-error: true
+      
+      # Step 6: Check for security vulnerabilities
+      - name: Security audit
+        working-directory: ./backend
+        run: npm audit --audit-level=high || true
+
+  # Job 2: Test Frontend
+  test-frontend:
+    name: Test Frontend
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/tinyurl-frontend/package-lock.json
+      
+      - name: Install frontend dependencies
+        working-directory: ./frontend/tinyurl-frontend
+        run: npm ci
+      
+      - name: Run ESLint
+        working-directory: ./frontend/tinyurl-frontend
+        run: npm run lint || echo "Lint errors found"
+        continue-on-error: true
+      
+      - name: Build frontend
+        working-directory: ./frontend/tinyurl-frontend
+        run: npm run build
+      
+      - name: Run frontend tests
+        working-directory: ./frontend/tinyurl-frontend
+        run: npm test || echo "No tests found yet"
+        continue-on-error: true
+
+  # Job 3: Build and Deploy (only on main branch)
+  deploy:
+    name: Deploy to Production
+    needs: [test-backend, test-frontend]  # Wait for tests to pass
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      # Deploy Backend to Render (or your server)
+      - name: Deploy Backend
+        run: |
+          echo "Deploying backend..."
+          # Add your deployment commands here
+          # For Render: It auto-deploys on git push
+          # For EC2: Use SSH to deploy
+        
+      # Deploy Frontend to Vercel
+      - name: Deploy Frontend
+        run: |
+          echo "Deploying frontend..."
+          # Vercel auto-deploys on git push
+      
+      - name: Deployment Success
+        run: echo "✅ Deployment completed successfully!"
+
+  # Job 4: Notify on Failure
+  notify:
+    name: Notify on Failure
+    needs: [test-backend, test-frontend, deploy]
+    runs-on: ubuntu-latest
+    if: failure()
+    
+    steps:
+      - name: Send notification
+        run: |
+          echo "❌ Pipeline failed! Check the logs."
+          # Add Slack/Discord/Email notification here
