@@ -19,7 +19,10 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
   // Check anonymous usage count on component mount
   useEffect(() => {
     const count = parseInt(localStorage.getItem('anonymous_url_count') || '0')
-    setAnonymousCount(count)
+    // Use a state initialization callback to avoid setting state in effect
+    if (count > 0) {
+      setAnonymousCount(count)
+    }
   }, [])
 
   const handleShortenUrl = async (e) => {
@@ -102,7 +105,7 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
 
           <Button
             onClick={onSwitchToLogin}
-            className="h-9 px-4 bg-transparent border border-gray-300 text-black hover:bg-gray-50 font-normal text-sm rounded-full dark:border-gray-600 dark:text-white dark:hover:bg-gray-900 transition-all"
+            className="h-9 px-4 bg-transparent border border-gray-300 text-black hover:bg-gray-50 font-normal text-sm rounded-full dark:border-gray-600 dark:text-white dark:hover:bg-gray-900 tran[...]
           >
             Sign in
           </Button>
@@ -144,14 +147,14 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Paste your long URL here..."
-                  className="flex-1 h-14 px-5 text-base border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 bg-white font-normal dark:bg-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 transition-all"
+                  className="flex-1 h-14 px-5 text-base border-gray-300 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 bg-white font-normal dark:bg-gray-900 dark:border-gray[...]
                   style={{ letterSpacing: '-0.374px' }}
                   required
                 />
                 <Button
                   type="submit"
                   disabled={loading || !url.trim()}
-                  className="h-14 px-8 text-base font-normal rounded-xl transition-all bg-blue-600 text-white hover:bg-blue-700 border-0 shadow-sm disabled:bg-gray-300 disabled:text-gray-500 dark:bg-blue-500 dark:hover:bg-blue-600"
+                  className="h-14 px-8 text-base font-normal rounded-xl transition-all bg-blue-600 text-white hover:bg-blue-700 border-0 shadow-sm disabled:bg-gray-300 disabled:text-gray-500 dark[...]
                   style={{ letterSpacing: '-0.374px' }}
                 >
                   {loading ? 'Shortening...' : (
@@ -184,7 +187,7 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
                   />
                   <Button
                     onClick={() => navigator.clipboard.writeText(shortUrl)}
-                    className="h-12 px-6 border border-gray-300 bg-white hover:bg-gray-50 text-black font-normal text-base rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white transition-all"
+                    className="h-12 px-6 border border-gray-300 bg-white hover:bg-gray-50 text-black font-normal text-base rounded-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 [...]
                   >
                     Copy
                   </Button>
@@ -265,7 +268,7 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
 
                 <Button
                   onClick={handleLoginWithUrl}
-                  className="w-full h-12 border border-gray-300 bg-white hover:bg-gray-50 text-black font-normal rounded-xl text-base dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white transition-all"
+                  className="w-full h-12 border border-gray-300 bg-white hover:bg-gray-50 text-black font-normal rounded-xl text-base dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 [...]
                   style={{ letterSpacing: '-0.374px' }}
                 >
                   Sign in & Save Link
@@ -341,7 +344,7 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
 
                 <Button
                   onClick={handleLoginWithUrl}
-                  className="w-full h-12 border border-gray-300 bg-white hover:bg-gray-50 text-black font-normal rounded-xl text-base dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white transition-all"
+                  className="w-full h-12 border border-gray-300 bg-white hover:bg-gray-50 text-black font-normal rounded-xl text-base dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 [...]
                   style={{ letterSpacing: '-0.374px' }}
                 >
                   Sign in & Continue
