@@ -1,39 +1,32 @@
 import { useState, useEffect } from 'react'
 
 const ThemeToggler = () => {
-  const [isDark, setIsDark] = useState(false)
-
-  // Check for saved theme preference or default to light
-  useEffect(() => {
+  const [isDark, setIsDark] = useState(() => {
+    // Initialize state from localStorage
     const savedTheme = localStorage.getItem('theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true)
-      document.documentElement.classList.add('dark')
-    } else {
-      setIsDark(false)
-      document.documentElement.classList.remove('dark')
-    }
-  }, [])
+    return savedTheme === 'dark' || (!savedTheme && prefersDark)
+  })
 
-  const toggleTheme = () => {
-    const newTheme = !isDark
-    setIsDark(newTheme)
-    
-    if (newTheme) {
+  // Apply theme on mount and when isDark changes
+  useEffect(() => {
+    if (isDark) {
       document.documentElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
     } else {
       document.documentElement.classList.remove('dark')
       localStorage.setItem('theme', 'light')
     }
+  }, [isDark])
+
+  const toggleTheme = () => {
+    setIsDark(prevIsDark => !prevIsDark)
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="relative inline-flex h-10 w-20 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-1 transition-all duration-300 ease-in-out hover:border-gray-400 focus:outline-none dark:border-gray-600 dark:bg-gray-900"
+      className="relative inline-flex h-10 w-20 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-1 transition-all duration-300 ease-in-out hover:border-gray-400 focus:o[...]
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} theme`}
     >
       {/* Track */}
@@ -55,7 +48,7 @@ const ThemeToggler = () => {
         >
           <path
             fillRule="evenodd"
-            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.464-2.05a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm5.657-5.657a1 1 0 00-1.414 0l-.707.707a1 1 0 001.414 1.414l.707-.707a1 1 0 000-1.414zM5.678 6.464a1 1 0 010-1.414l.707-.707a1 1 0 11 1.414 1.414l-.707.707a1 1 0 01-1.414 0z"
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.[...]
             clipRule="evenodd"
           />
         </svg>
