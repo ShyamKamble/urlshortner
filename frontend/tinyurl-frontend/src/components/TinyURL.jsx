@@ -46,9 +46,9 @@ function TinyURL({ user, onLogout }) {
         console.log('Sorted URLs:', sortedUrls)
         setUserUrls(sortedUrls)
       }
-    } catch (_error) {
-      console.error('Error fetching user URLs:', _error)
-      if (_error.response?.status === 401) {
+    } catch (error) {
+      console.error('Error fetching user URLs:', error)
+      if (error.response?.status === 401) {
         // Token expired or invalid
         localStorage.removeItem('authToken')
         localStorage.removeItem('tinyurl_user')
@@ -80,8 +80,8 @@ function TinyURL({ user, onLogout }) {
       setShortUrl(response.data.shortUrl)
       // Refresh the URL list after creating a new one
       fetchUserUrls()
-    } catch (_error) {
-      console.error('Error shortening URL:', _error)
+    } catch (error) {
+      console.error('Error shortening URL:', error)
     }
     setLoading(false)
   }, [url, fetchUserUrls])
@@ -105,8 +105,8 @@ function TinyURL({ user, onLogout }) {
       await navigator.clipboard.writeText(textToCopy)
       setCopied(id)
       setTimeout(() => setCopied(''), 2000)
-    } catch (_error) {
-      console.error('Failed to copy:', _error)
+    } catch (error) {
+      console.error('Failed to copy:', error)
     }
   }
 
@@ -180,13 +180,13 @@ function TinyURL({ user, onLogout }) {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Paste your long URL here..."
-                  className="flex-1 h-12 px-4 text-sm border-gray-300 rounded-md focus:border-gray-400 focus:ring-0 bg-white font-normal dark:bg-gray-900 dark:border-gray-600 dark:text-white dark:focus:border-gray-500"
+                  className="flex-1 h-12 px-4 text-sm border-gray-300 rounded-md focus:border-gray-400 focus:ring-0 bg-white font-normal dark:bg-gray-900 dark:border-gray-600 dark:text-white dark[...]
                   required
                 />
                 <Button 
                   type="submit" 
                   disabled={loading || !url.trim()}
-                  className="!inline-flex !items-center !justify-center !gap-2 !whitespace-nowrap !shrink-0 !h-12 !px-6 !py-2 !text-sm !font-medium !rounded-md !transition-all !outline-none !bg-gray-900 !text-white !hover:bg-gray-800 !dark:bg-gray-100 !dark:text-gray-900 !dark:hover:bg-gray-200 !disabled:bg-gray-300 !disabled:text-gray-500 !disabled:cursor-not-allowed"
+                  className="!inline-flex !items-center !justify-center !gap-2 !whitespace-nowrap !shrink-0 !h-12 !px-6 !py-2 !text-sm !font-medium !rounded-md !transition-all !outline-none !bg-g[...]
                 >
                   {loading ? 'Shortening...' : (
                     <>
