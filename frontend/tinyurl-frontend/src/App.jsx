@@ -16,7 +16,7 @@ function App() {
         const userData = JSON.parse(savedUser)
         setUser(userData)
         setCurrentView('app')
-      } catch (_error) {
+      } catch {
         localStorage.removeItem('tinyurl_user')
       }
     }
