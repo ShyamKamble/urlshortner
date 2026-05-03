@@ -18,9 +18,6 @@ function LandingPage({ onSwitchToLogin, onSwitchToSignup }) {
     // Initialize from localStorage
     return parseInt(localStorage.getItem('anonymous_url_count') || '0')
   })
-    return parseInt(localStorage.getItem('anonymous_url_count') || '0')
-  })
->>>>>>> d45492e (solving the lint errors)
 
   const handleShortenUrl = async (e) => {
     e.preventDefault()

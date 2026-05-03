@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Copy, Link2, Check, LogOut, User, ArrowRight, ExternalLink, History, Globe } from 'lucide-react'
+import { Copy, Link2, Check, LogOut, User, ArrowRight, ExternalLink, History } from 'lucide-react'
 import ThemeToggler from './ThemeToggler'
 import { API_ENDPOINTS } from '../config/api'
 import { CompactUrlDisplay } from '@/components/ui/url-display'
@@ -72,9 +72,9 @@ function TinyURL({ user, onLogout }) {
     } finally {
       setLoadingUrls(false)
     }
-  }, [user.id, onLogout])
+  }
 
-  const handleShortenUrl = useCallback(async (e, pendingUrlParam = null) => {
+  const handleShortenUrl = async (e, pendingUrlParam = null) => {
     if (e) e.preventDefault()
     const urlToShorten = pendingUrlParam || url
     if (!urlToShorten) return
@@ -99,21 +99,7 @@ function TinyURL({ user, onLogout }) {
       console.error('Error shortening URL:', error)
     }
     setLoading(false)
-  }, [url, fetchUserUrls])
-
-  // Check for pending URL when component mounts
-  useEffect(() => {
-    const pendingUrl = localStorage.getItem('pending_url')
-    if (pendingUrl) {
-      setUrl(pendingUrl)
-      localStorage.removeItem('pending_url')
-      // Auto-shorten the pending URL
-      handleShortenUrl(null, pendingUrl)
-    }
-    
-    // Fetch user's URL history
-    fetchUserUrls()
-  }, [fetchUserUrls, handleShortenUrl])
+  }
 
   const handleCopy = async (textToCopy, id = 'main') => {
     try {
@@ -195,13 +181,13 @@ function TinyURL({ user, onLogout }) {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Paste your long URL here..."
-                  className="flex-1 h-12 px-4 text-sm border-gray-300 rounded-md focus:border-gray-400 focus:ring-0 bg-white font-normal dark:bg-gray-900 dark:border-gray-600 dark:text-white dark[...]
+                  className="flex-1 h-12 px-4 text-sm border-gray-300 rounded-md focus:border-gray-400 focus:ring-0 bg-white font-normal dark:bg-gray-900 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
                   required
                 />
                 <Button 
                   type="submit" 
                   disabled={loading || !url.trim()}
-                  className="!inline-flex !items-center !justify-center !gap-2 !whitespace-nowrap !shrink-0 !h-12 !px-6 !py-2 !text-sm !font-medium !rounded-md !transition-all !outline-none !bg-g[...]
+                  className="!inline-flex !items-center !justify-center !gap-2 !whitespace-nowrap !shrink-0 !h-12 !px-6 !py-2 !text-sm !font-medium !rounded-md !transition-all !outline-none !bg-gray-900 !text-white hover:!bg-gray-800 !border !border-gray-300 !shadow-sm disabled:!pointer-events-none disabled:!opacity-100 disabled:!bg-gray-300 disabled:!text-gray-600 focus-visible:!ring-2 focus-visible:!ring-offset-2 focus-visible:!ring-gray-900"
                 >
                   {loading ? 'Shortening...' : (
                     <>
